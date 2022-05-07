@@ -3,5 +3,5 @@ from .views import accounts
 
 app_name = 'account'
 urlpatterns = [
-    path('', accounts, name='index'), # 查询账户
+    path('index/<str:search_key>', accounts, name='index'), # 查询账户
 ]
