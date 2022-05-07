@@ -6,15 +6,15 @@ from .models import MyAccount
 
 class AccountAdmin(admin.ModelAdmin):
     list_display = [
-            'id',
+        'id',
         'account_description',
-                    'account_name',
-                    'account_password',
-                    'create_date',
-                    'modify_date',
-                    'email',
-                    'phone'
-                    ]
+        'account_name',
+        'account_password',
+        'create_date',
+        'modify_date',
+        'email',
+        'phone'
+    ]
 
 
 admin.site.register(MyAccount, AccountAdmin)
