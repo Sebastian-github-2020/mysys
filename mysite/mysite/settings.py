@@ -23,8 +23,11 @@ SECRET_KEY = 'django-insecure-hzz!xv#4ndp_g!q!$ygugbdr(g3nd0p9w17i^x03liyzntf_+9
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+# 配置跨域
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+# 允许所有的请求头
+CORS_ALLOW_HEADERS = ('*',)
 
 # Application definition
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # 新增的跨域中间件 必须放在这个位置
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
