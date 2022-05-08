@@ -1,1 +1,10 @@
-# manage.py runserver 启动服务器
+def data(status, data, **kwargs):
+    return {
+        "status": status,
+        "data": data,
+        **kwargs
+    }
+
+
+a = data(200, 123, msg="msg")
+print(a)
