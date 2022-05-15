@@ -20,7 +20,8 @@ class MyAccount(models.Model):
 
 class Movie(models.Model):
     """影片管理模型"""
-    movie_hero_name = models.CharField(max_length=100, verbose_name="演员名称")
+    movie_hero_name = models.CharField(max_length=100, verbose_name="演员名称",null=False)
     movie_date = models.DateField(verbose_name="发布日期")
-    movie_film_name = models.CharField(max_length=100, verbose_name="影片名称")
-    movie_img = models.CharField(max_length=200, verbose_name='图片路径')
+    movie_film_name = models.CharField(max_length=100, verbose_name="影片名称",null=False)
+    movie_img = models.ImageField( verbose_name='图片路径',null=False,upload_to="account/static/pic")
+    movie_evaluate = models.CharField(max_length=200,verbose_name="评价",default="没有添加评价")

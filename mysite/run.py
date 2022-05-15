@@ -15,7 +15,7 @@ run_server_default = f"{base_command} runserver"
 run_server_allow_other = f"{run_server_default} 0:0:0:0:{default_port}"
 
 
-def run_server(command: str = base_command):
+def run_server(command: str = run_server_default):
     res = os.popen(command)
     f = res.read()
     print(f)

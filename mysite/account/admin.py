@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MyAccount
+from .models import MyAccount, Movie
 
 
 # Register your models here.
@@ -28,9 +28,15 @@ class AccountAdmin(admin.ModelAdmin):
         ("主要信息", {'fields': ['account_description',
                              'account_name',
                              'account_password', ]}),
-        ('联系信息',{'fields':['email','phone']})
+        ('联系信息', {'fields': ['email', 'phone']})
     ]
     search_fields = ('account_name', 'account_description', 'email')
 
 
+class MovieAdmin(admin.ModelAdmin):
+    fields = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img']
+    list_display = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img']
+
+
 admin.site.register(MyAccount, AccountAdmin)
+admin.site.register(Movie, MovieAdmin)
