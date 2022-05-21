@@ -120,7 +120,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-# 配置 django rest framework
+# 配置 django rest framework 生成api文档
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
