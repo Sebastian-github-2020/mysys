@@ -18,28 +18,24 @@ class AccountAdmin(admin.ModelAdmin):
         'phone'
     ]
     # 添加数据的时候显示的字段
-    # fields = ['account_description',
-    #           'account_name',
-    #           'account_password',
-    #           'modify_date',
-    #           'email',
-    #           'phone']
+    fields = ['account_description',
+              'account_name',
+              'account_password',
+              'email',
+              'phone']
     # 字段比较多的时候 可以给字段分类 和上面的 fields字段 冲突 2选1吧
-    fieldsets = [
-        ("主要信息", {'fields': ['account_description',
-                             'account_name',
-                             'account_password', ]}),
-        ('联系信息', {'fields': ['email', 'phone']})
-    ]
+    # fieldsets = [
+    #     ("主要信息", {'fields': ['account_description',
+    #                          'account_name',
+    #                          'account_password', ]}),
+    #     ('联系信息', {'fields': ['email', 'phone']})
+    # ]
     search_fields = ('account_name', 'account_description', 'email')
 
 
 class MovieAdmin(admin.ModelAdmin):
     fields = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img']
-    list_display = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img','movie_img_data']
-
-
-
+    list_display = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img', 'movie_img_data']
 
 
 admin.site.register(MyAccount, AccountAdmin)

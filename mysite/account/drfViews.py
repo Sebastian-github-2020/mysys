@@ -6,7 +6,6 @@ from .models import MyAccount
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView  # 通用视图
-from rest_framework.mixins import ListModelMixin  # 获取多条数据作为响应结果
 
 
 # 基本视图类
@@ -140,10 +139,54 @@ class MyAccountInfoGenericView(GenericAPIView):
             return Response(serializer.errors)
 
 
-# ListModelMixin 进阶操作 帮助查询多条数据
-class MyAccountListMixinView(GenericAPIView, ListModelMixin):
+from rest_framework.mixins import ListModelMixin  # 获取多条数据 返回响应结果
+from rest_framework.mixins import CreateModelMixin  # 添加一条数据 返回响应结果
+from rest_framework.mixins import RetrieveModelMixin  # 获取一条数据  返回响应结果
+from rest_framework.mixins import UpdateModelMixin  # 更新数据 （全部字段更新）  返回响应结果
+from rest_framework.mixins import DestroyModelMixin  # 删除一条字段  返回响应结果
+
+
+# 配合通用视图
+class MyAccountListMixinView(GenericAPIView, ListModelMixin, CreateModelMixin):
     queryset = MyAccount.objects.all()
     serializer_class = AccountSerializer
 
     def get(self, request: Request):
+        """查询所有账户数据"""
         return self.list(request=request)
+
+    def post(self, request: Request):
+        """添加一条数据"""
+        return self.create(request=request)
+
+
+class MyAccountMixinView(GenericAPIView, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin):
+    queryset = MyAccount.objects.all()
+    serializer_class = AccountSerializer
+
+    def get(self, request: Request, pk):
+        """
+        获取一条数据
+        :param request:
+        :param pk:
+        :return:
+        """
+        return self.retrieve(request=request, pk=pk)
+
+    def put(self, request, pk):
+        """
+        更新一条数据  更新全部字段
+        :param request:
+        :param pk:
+        :return:
+        """
+        return self.update(request, pk=pk)
+
+    def delete(self, request, pk):
+        """
+        删除一条数据
+        :param request:
+        :param pk:
+        :return:
+        """
+        return self.destroy(request, pk=pk)

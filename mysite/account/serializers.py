@@ -6,6 +6,8 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyAccount
         fields = '__all__'
+        # 非必填 只读字段
+        read_only_fields = ['create_date', 'modify_date', 'id']
         # 给字段添加额外的约束
         extra_kwargs = {
             "account_description": {

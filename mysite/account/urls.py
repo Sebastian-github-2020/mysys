@@ -13,4 +13,5 @@ urlpatterns = [
                   path("apiview/<int:account_id>", MyAccountInfoAPIView.as_view()),
                   path("gview/<int:id>", MyAccountInfoGenericView.as_view()),
                   path("glview/", MyAccountListMixinView.as_view()),
+                  path("grview/<int:pk>", MyAccountMixinView.as_view()),
               ] + router.urls
