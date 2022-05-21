@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import MyAccount, Movie
+from django.utils.safestring import mark_safe
 
 
 # Register your models here.
@@ -35,7 +36,10 @@ class AccountAdmin(admin.ModelAdmin):
 
 class MovieAdmin(admin.ModelAdmin):
     fields = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img']
-    list_display = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img']
+    list_display = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img','movie_img_data']
+
+
+
 
 
 admin.site.register(MyAccount, AccountAdmin)
