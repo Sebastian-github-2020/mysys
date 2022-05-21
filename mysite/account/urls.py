@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import accounts
-from .drfViews import MyAccountView, MyAccountAPIView,MyAccountInfoAPIView,MyAccountInfoGenericView
+from .drfViews import *
 from rest_framework.routers import DefaultRouter
 # from rest_framework.urls import
 
@@ -12,4 +12,5 @@ urlpatterns = [
                   path("drfapi", MyAccountAPIView.as_view()),
                   path("apiview/<int:account_id>", MyAccountInfoAPIView.as_view()),
                   path("gview/<int:id>", MyAccountInfoGenericView.as_view()),
+                  path("glview/", MyAccountListMixinView.as_view()),
               ] + router.urls

@@ -6,6 +6,7 @@ from .models import MyAccount
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView  # 通用视图
+from rest_framework.mixins import ListModelMixin  # 获取多条数据作为响应结果
 
 
 # 基本视图类
@@ -137,3 +138,12 @@ class MyAccountInfoGenericView(GenericAPIView):
             return Response(serializer.data, 200)
         else:
             return Response(serializer.errors)
+
+
+# ListModelMixin 进阶操作 帮助查询多条数据
+class MyAccountListMixinView(GenericAPIView, ListModelMixin):
+    queryset = MyAccount.objects.all()
+    serializer_class = AccountSerializer
+
+    def get(self, request: Request):
+        return self.list(request=request)
