@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 
 
-class MyAccountView1(APIView):
+class MyAccountAPIView(APIView):
 
     def get(self, request: Request):
         """
@@ -30,13 +30,14 @@ class MyAccountView1(APIView):
         :return:
         """
         data = request.data
-        print("post",data)
+        print("post", data)
         # 將传入的数据 存入数据库，这属于反序列化  需要验证格式
         serializer = AccountSerializer(data=data)
+        serializer.save()  # 很重要 切记
         if serializer.is_valid():
             return Response(data=data)
         else:
-            return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MyAccountView(ModelViewSet):
