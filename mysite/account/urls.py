@@ -2,10 +2,13 @@ from django.urls import path
 from .views import accounts
 from .drfViews import *
 from rest_framework.routers import DefaultRouter
+
 # from rest_framework.urls import
 
 router = DefaultRouter()
 router.register("api", MyAccountView)
+router.register("api1", MyAccountModelViewSet, basename="login")
+
 app_name = 'account'
 urlpatterns = [
                   path('index', accounts, name='index'),  # 查询账户

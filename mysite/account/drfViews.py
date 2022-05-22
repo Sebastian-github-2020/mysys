@@ -7,8 +7,9 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView  # 通用视图
 
-
 """基本视图类"""
+
+
 class MyAccountAPIView(APIView):
 
     def get(self, request: Request):
@@ -219,5 +220,35 @@ class MyAccountListApiView(ListAPIView, CreateAPIView):
     serializer_class = AccountSerializer
 
 
+"""视图集  解决上面的重复性代码,和视图很类似 区别在于 方法名"""
+from rest_framework.viewsets import ViewSet, ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin
 
-"""视图集  解决上面的重复性代码"""
+
+# 和上面的apiView代码类似 可以多继承  minx
+class MyAccountViewSet(ViewSet):
+    pass
+
+
+# 装饰器
+from rest_framework.decorators import action
+
+
+class MyAccountModelViewSet(ModelViewSet):
+    """
+    1. 生成5个查询，如果不需要这么多 可以选择其他的 视图集继承
+    2. 但是api不可能只有这5个  需要添加的话需要用到 装饰器
+    """
+    queryset = MyAccount.objects.all()
+    serializer_class = AccountSerializer
+
+    @action(methods=["get"], detail=True, url_path="login")
+    def login(self, request, pk):
+        r = self.retrieve(request=request, pk=pk)
+
+        r.data = {
+            "msg": "登录成功",
+            "data": [r.data]
+        }
+        print(r.data)
+        return r
