@@ -222,7 +222,7 @@ class MyAccountListApiView(ListAPIView, CreateAPIView):
 
 """视图集  解决上面的重复性代码,和视图很类似 区别在于 方法名"""
 from rest_framework.viewsets import ViewSet, ModelViewSet, ReadOnlyModelViewSet
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
 
 
 # 和上面的apiView代码类似 可以多继承  minx
@@ -254,3 +254,8 @@ class MyAccountModelViewSet(ModelViewSet):
         }
         print(r.data)
         return r
+
+    def modify_pwd(self, request, id):
+        """局部更新"""
+        res = self.partial_update(request=request, id=id)
+        return res
