@@ -255,6 +255,7 @@ class MyAccountModelViewSet(ModelViewSet):
         print(r.data)
         return r
 
+    @action(methods=["PATCH"], detail=True, url_path="modify")
     def modify_pwd(self, request, id):
         """局部更新"""
         res = self.partial_update(request=request, id=id)
