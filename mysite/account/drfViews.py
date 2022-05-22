@@ -241,10 +241,12 @@ class MyAccountModelViewSet(ModelViewSet):
     """
     queryset = MyAccount.objects.all()
     serializer_class = AccountSerializer
+    lookup_field = "id"
 
+    # detail 代表是否需要指定一个pk参数 来获取唯一的数据  这个参数可以指定的  看上面
     @action(methods=["get"], detail=True, url_path="login")
-    def login(self, request, pk):
-        r = self.retrieve(request=request, pk=pk)
+    def login(self, request, id):
+        r = self.retrieve(request=request, id=id)
 
         r.data = {
             "msg": "登录成功",
