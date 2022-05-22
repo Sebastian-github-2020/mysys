@@ -33,3 +33,12 @@ class AccountSerializer(serializers.ModelSerializer):
                 },
             }
         }
+
+    def validate(self, attrs):
+        """反序列化的时候对所有字段进行自定义校验"""
+        return attrs
+
+    #  方法名 validate_【字段名称】
+    def validate_account_name(self, account_name):
+        """对指定的字段进行校验 执行顺序在 全部字段校验前面"""
+        return account_name
