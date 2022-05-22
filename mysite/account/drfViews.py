@@ -8,7 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView  # 通用视图
 
 
-# 基本视图类
+"""基本视图类"""
 class MyAccountAPIView(APIView):
 
     def get(self, request: Request):
@@ -139,6 +139,7 @@ class MyAccountInfoGenericView(GenericAPIView):
             return Response(serializer.errors)
 
 
+"""视图拓展类"""
 from rest_framework.mixins import ListModelMixin  # 获取多条数据 返回响应结果
 from rest_framework.mixins import CreateModelMixin  # 添加一条数据 返回响应结果
 from rest_framework.mixins import RetrieveModelMixin  # 获取一条数据  返回响应结果
@@ -190,3 +191,33 @@ class MyAccountMixinView(GenericAPIView, RetrieveModelMixin, UpdateModelMixin, D
         :return:
         """
         return self.destroy(request, pk=pk)
+
+
+"""
+视图子类是  通用视图类和视图拓展的子类
+"""
+from rest_framework.generics import CreateAPIView  # GenericAPIView+CreateModelMixin  组合 添加一条数据 的视图
+from rest_framework.generics import ListAPIView  # GenericAPIView +ListModelMixin 获得多条数据 的视图
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import DestroyAPIView
+
+"""组合视图"""
+from rest_framework.generics import RetrieveDestroyAPIView  # 删除一条数据 + 获取一条数据
+from rest_framework.generics import RetrieveUpdateDestroyAPIView  # 更新一条数据+删除一条数据+获取一条数据
+from rest_framework.generics import ListCreateAPIView  # 创建数据+获取多条数据
+from rest_framework.generics import RetrieveUpdateAPIView  # # 查询一条和更新一条
+
+
+class MyAccountCreateApiView(CreateAPIView):
+    pass
+
+
+class MyAccountListApiView(ListAPIView, CreateAPIView):
+    """获取多条数据 + 创建数据"""
+    queryset = MyAccount.objects.all()
+    serializer_class = AccountSerializer
+
+
+
+"""视图集  解决上面的重复性代码"""
