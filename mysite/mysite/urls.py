@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('doc', include_docs_urls(title="api文档", description="django rest framework")),
+    path('demo', include('demo.urls'))
 ]
