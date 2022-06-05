@@ -1,11 +1,12 @@
-from rest_framework.views import APIView  # 基本视图类
+from rest_framework import status
+from rest_framework.generics import GenericAPIView  # 通用视图
 from rest_framework.request import Request
 from rest_framework.response import Response
-from .serializers import AccountSerializer
-from .models import MyAccount
-from rest_framework import status
+from rest_framework.views import APIView  # 基本视图类
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import GenericAPIView  # 通用视图
+
+from .models import MyAccount
+from .serializers import AccountSerializer
 
 """基本视图类"""
 
@@ -26,22 +27,23 @@ class MyAccountAPIView(APIView):
 
         return Response(data=serializer, status=status.HTTP_200_OK)
 
-    def post(self, request: Request):
-        """
-        创建账户
-        :param request:
-        :return:
-        """
-        data = request.data
-        print("post", data)
-        # 將传入的数据 存入数据库，这属于反序列化  需要验证格式
-        serializer = AccountSerializer(data=data)
 
-        if serializer.is_valid():
-            serializer.save()  # 很重要 切记
-            return Response(data=data)
-        else:
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+def post(self, request: Request):
+    """
+    创建账户
+    :param request:
+    :return:
+    """
+    data = request.data
+    print("post", data)
+    # 將传入的数据 存入数据库，这属于反序列化  需要验证格式
+    serializer = AccountSerializer(data=data)
+
+    if serializer.is_valid():
+        serializer.save()  # 很重要 切记
+        return Response(data=data)
+    else:
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # 基本视图类
@@ -199,15 +201,8 @@ class MyAccountMixinView(GenericAPIView, RetrieveModelMixin, UpdateModelMixin, D
 """
 from rest_framework.generics import CreateAPIView  # GenericAPIView+CreateModelMixin  组合 添加一条数据 的视图
 from rest_framework.generics import ListAPIView  # GenericAPIView +ListModelMixin 获得多条数据 的视图
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.generics import UpdateAPIView
-from rest_framework.generics import DestroyAPIView
 
 """组合视图"""
-from rest_framework.generics import RetrieveDestroyAPIView  # 删除一条数据 + 获取一条数据
-from rest_framework.generics import RetrieveUpdateDestroyAPIView  # 更新一条数据+删除一条数据+获取一条数据
-from rest_framework.generics import ListCreateAPIView  # 创建数据+获取多条数据
-from rest_framework.generics import RetrieveUpdateAPIView  # # 查询一条和更新一条
 
 
 class MyAccountCreateApiView(CreateAPIView):
@@ -221,8 +216,7 @@ class MyAccountListApiView(ListAPIView, CreateAPIView):
 
 
 """视图集  解决上面的重复性代码,和视图很类似 区别在于 方法名"""
-from rest_framework.viewsets import ViewSet, ModelViewSet, ReadOnlyModelViewSet
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
+from rest_framework.viewsets import ViewSet, ModelViewSet
 
 
 # 和上面的apiView代码类似 可以多继承  minx

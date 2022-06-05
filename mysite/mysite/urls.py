@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.staticfiles.views import serve
 from django.urls import path, include, re_path
-from django.views.static import serve
-from . import settings
 from rest_framework.documentation import include_docs_urls
+
+from . import settings
+
 urlpatterns = [
     re_path(r'^media/(?P<path>.+)$', serve, {'document_root': settings.MEDIA_ROOT}),  # 图片路径设置
     path('admin/', admin.site.urls),
