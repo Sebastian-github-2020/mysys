@@ -34,9 +34,13 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 class MovieAdmin(admin.ModelAdmin):
-    fields = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img']
+    fields = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img','movie_content']
     list_display = ['movie_hero_name', 'movie_date', 'movie_film_name', 'movie_img', 'movie_img_data']
 
 
 admin.site.register(MyAccount, AccountAdmin)
 admin.site.register(Movie, MovieAdmin)
+
+admin.site.site_header = "账户管理系统"
+admin.site.site_title = "账户管理"
+admin.site.index_title = "后台首页"

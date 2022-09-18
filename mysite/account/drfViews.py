@@ -1,3 +1,4 @@
+import rest_framework.permissions
 from rest_framework import status
 from rest_framework.generics import GenericAPIView  # 通用视图
 from rest_framework.request import Request
@@ -5,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView  # 基本视图类
 from rest_framework.viewsets import ModelViewSet
 
+import account.authentication
 from .models import MyAccount
 from .serializers import AccountSerializer
 
@@ -93,6 +95,7 @@ class MyAccountInfoAPIView(APIView):
 
 class MyAccountView(ModelViewSet):
     """这种做法不常用,不能满足需求"""
+    permission_classes = [rest_framework.permissions.IsAuthenticated]
     queryset = MyAccount.objects.all()
     serializer_class = AccountSerializer
 
@@ -236,6 +239,8 @@ class MyAccountModelViewSet(ModelViewSet):
     queryset = MyAccount.objects.all()
     serializer_class = AccountSerializer
     lookup_field = "id"
+    permission_classes = [rest_framework.permissions.IsAuthenticated]
+    # authentication_classes = [account.authentication.CustomAutentication]
 
     # detail 代表是否需要指定一个pk参数 来获取唯一的数据  这个参数可以指定的  看上面
     @action(methods=["get"], detail=True, url_path="login")
@@ -254,3 +259,9 @@ class MyAccountModelViewSet(ModelViewSet):
         """局部更新"""
         res = self.partial_update(request=request, id=id)
         return res
+
+    @action(methods=['POST'], url_path='login', detail=False)
+    def login_test(self, req:Request):
+        print(req.user)
+        print(req.auth)
+        return Response({"msg": "ok"})

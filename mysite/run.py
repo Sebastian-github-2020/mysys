@@ -22,4 +22,8 @@ def run_server(command: str = run_server_default):
 
 
 if __name__ == '__main__':
-    run_server()
+    # run_server()
+    a = {}
+    for i in range(1,20):
+        a["item"] = str(i)
+        print(a)

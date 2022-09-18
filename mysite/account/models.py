@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
-
+from mdeditor.fields import MDTextField
 
 # Create your models here.
 
@@ -28,6 +28,7 @@ class Movie(models.Model):
     movie_film_name = models.CharField(max_length=100, verbose_name="影片名称", null=False)
     movie_img = models.ImageField(verbose_name='图片路径', null=False, upload_to="account")
     movie_evaluate = models.CharField(max_length=200, verbose_name="评价", default="没有添加评价")
+    movie_content = MDTextField(default="")
 
     def movie_img_data(self):
         print(self.movie_img)
@@ -35,6 +36,9 @@ class Movie(models.Model):
             return format_html('<img src="/media/{}" width="100px"/>', self.movie_img)
         else:
             return format_html('<p>没有图片</p>')
+
+    def __str__(self):
+        return self.movie_film_name
 
     class Meta:
         verbose_name = "电影"
